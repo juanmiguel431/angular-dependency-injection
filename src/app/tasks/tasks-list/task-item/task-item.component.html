@@ -12,11 +12,11 @@
   <p>{{ task().description }}</p>
   <form (ngSubmit)="onChangeTaskStatus(task().id, status.value)">
     <select #status>
-      <option value="open" [selected]="task().status === 'OPEN'">Open</option>
-      <option value="in-progress" [selected]="task().status === 'IN_PROGRESS'">
+      <option value="OPEN" [selected]="task().status === 'OPEN'">Open</option>
+      <option value="IN_PROGRESS" [selected]="task().status === 'IN_PROGRESS'">
         In-Progress
       </option>
-      <option value="done" [selected]="task().status === 'DONE'">
+      <option value="DONE" [selected]="task().status === 'DONE'">
         Completed
       </option>
     </select>

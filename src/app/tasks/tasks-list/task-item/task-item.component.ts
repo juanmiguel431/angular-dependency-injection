@@ -28,22 +28,6 @@ export class TaskItemComponent {
   });
 
   onChangeTaskStatus(taskId: string, status: string) {
-    let newStatus: TaskStatus = 'OPEN';
-
-    switch (status) {
-      case 'open':
-        newStatus = 'OPEN';
-        break;
-      case 'in-progress':
-        newStatus = 'IN_PROGRESS';
-        break;
-      case 'done':
-        newStatus = 'DONE';
-        break;
-      default:
-        break;
-    }
-
-    this.taskService.updateStatus(taskId, newStatus);
+    this.taskService.updateStatus(taskId, status as TaskStatus);
   }
 }
