@@ -7,7 +7,11 @@ import { v4 as uuidv4 } from 'uuid';
   providedIn: 'root',
 })
 export class TaskService {
-  private tasks = signal<Task[]>([]);
+  private _tasks = signal<Task[]>([]);
+
+  public get tasks() {
+    return this._tasks.asReadonly();
+  }
 
   public add(task: AddTask) {
     const newTask: Task = {
@@ -17,6 +21,6 @@ export class TaskService {
       status: 'OPEN',
     };
 
-    this.tasks.update((tasks) => [...tasks, newTask]);
+    this._tasks.update((tasks) => [...tasks, newTask]);
   }
 }
