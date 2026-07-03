@@ -2,9 +2,11 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
+import { TaskService } from './tasks/task.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    TaskService,
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes)
   ]

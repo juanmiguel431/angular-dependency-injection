@@ -3,9 +3,9 @@ import { AddTask, Task, TaskStatus } from './task.model';
 import { v4 as uuidv4 } from 'uuid';
 
 
-@Injectable({
-  providedIn: 'root',
-})
+// @Injectable({
+//   providedIn: 'root',
+// })
 export class TaskService {
   private _tasks = signal<Task[]>([]);
 
