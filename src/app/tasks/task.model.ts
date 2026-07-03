@@ -1,6 +1,7 @@
 import { InjectionToken, Provider } from '@angular/core';
 
 export type TaskStatus = 'OPEN' | 'IN_PROGRESS' | 'DONE';
+export type TaskFilter = TaskStatus | 'ALL';
 
 export interface Task {
   id: string;

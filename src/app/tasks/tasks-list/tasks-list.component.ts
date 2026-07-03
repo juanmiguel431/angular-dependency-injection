@@ -10,7 +10,7 @@ import {
 
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TaskService } from '../task.service';
-import { Task, TASK_STATUS_OPTIONS, taskStatusOptionsProvider } from '../task.model';
+import { Task, TASK_STATUS_OPTIONS, TaskFilter, taskStatusOptionsProvider, } from '../task.model';
 
 @Component({
   selector: 'app-tasks-list',
@@ -21,7 +21,7 @@ import { Task, TASK_STATUS_OPTIONS, taskStatusOptionsProvider } from '../task.mo
   providers: [taskStatusOptionsProvider],
 })
 export class TasksListComponent implements OnInit {
-  selectedFilter = signal<string>('ALL');
+  selectedFilter = signal<TaskFilter>('ALL');
   private taskService = inject(TaskService);
   protected taskStatusOptions = inject(TASK_STATUS_OPTIONS);
   private changeDetectorRef = inject(ChangeDetectorRef);
@@ -39,7 +39,7 @@ export class TasksListComponent implements OnInit {
   ngOnInit(): void {
     const subscription = this.taskService.tasks$.subscribe((tasks) => {
       this._tasks = tasks;
-      this.changeDetectorRef.detectChanges();
+      this.changeDetectorRef.markForCheck();
     });
 
     this.destroyRef.onDestroy(() => {
@@ -48,6 +48,6 @@ export class TasksListComponent implements OnInit {
   }
 
   onChangeTasksFilter(filter: string) {
-    this.selectedFilter.set(filter);
+    this.selectedFilter.set(filter as TaskFilter);
   }
 }

@@ -86,9 +86,13 @@ export class TaskService2 {
   providedIn: 'root',
 })
 export class TaskService {
-  private _tasks = new BehaviorSubject<Task[]>([]);
-  private _loggingService = inject(LoggingService);
+  private readonly _tasks = new BehaviorSubject<Task[]>([]);
+  private readonly _loggingService = inject(LoggingService);
   public readonly tasks$ = this._tasks.asObservable();
+
+  private get tasks() {
+    return this._tasks.value;
+  }
 
   public add(task: AddTask) {
     const newTask: Task = {
@@ -98,18 +102,18 @@ export class TaskService {
       status: 'OPEN',
     };
 
-    this._tasks.next([...this._tasks.value, newTask]);
+    this._tasks.next([...this.tasks, newTask]);
     this._loggingService.log(`Task added: ${newTask.title}`);
   }
 
   public updateStatus(taskId: string, newStatus: TaskStatus) {
     this._tasks.next(
-      this._tasks.value.map(task => {
+      this.tasks.map((task) => {
         if (task.id === taskId) {
           return { ...task, status: newStatus };
         }
         return task;
-      })
+      }),
     );
 
     this._loggingService.log(`TaskId: ${taskId} - New status: ${newStatus}`);
