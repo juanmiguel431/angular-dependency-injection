@@ -4,7 +4,7 @@
     <select (change)="onChangeTasksFilter(filter.value)" #filter>
       <option value="ALL">All</option>
       @for (option of taskStatusOptions; track option.value) {
-        <option value="{{ option.value }}">{{ option.label }}</option>
+        <option [value]="option.value">{{ option.label }}</option>
       }
     </select>
   </p>
