@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from 'uuid';
 @Injectable({
   providedIn: 'root',
 })
-export class TasksService {
+export class TaskService {
   private tasks = signal<Task[]>([]);
 
   public add(task: AddTask) {
