@@ -6,7 +6,7 @@ import { TaskService } from './tasks/task.service';
 
 export const appConfig: ApplicationConfig = {
   providers: [
-    TaskService,
+    // TaskService,
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes)
   ]
