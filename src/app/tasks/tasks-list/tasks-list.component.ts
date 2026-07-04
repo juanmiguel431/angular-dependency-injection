@@ -1,7 +1,6 @@
 import {
   ChangeDetectorRef,
   Component,
-  computed,
   DestroyRef,
   inject,
   OnInit,
@@ -11,6 +10,7 @@ import {
 import { TaskItemComponent } from './task-item/task-item.component';
 import { TaskService } from '../task.service';
 import { Task, TASK_STATUS_OPTIONS, TaskFilter, taskStatusOptionsProvider, } from '../task.model';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-tasks-list',
@@ -37,14 +37,12 @@ export class TasksListComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    const subscription = this.taskService.tasks$.subscribe((tasks) => {
-      this._tasks = tasks;
-      this.changeDetectorRef.markForCheck();
-    });
-
-    this.destroyRef.onDestroy(() => {
-      subscription.unsubscribe();
-    });
+    this.taskService.tasks$
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((tasks) => {
+        this._tasks = tasks;
+        this.changeDetectorRef.markForCheck();
+      });
   }
 
   onChangeTasksFilter(filter: string) {
